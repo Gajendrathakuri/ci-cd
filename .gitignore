@@ -1,0 +1,13 @@
+
+.vs
+**/**/node_modules/
+txt.txxt
+**/bin/
+**/obj/
+**/dist/
+**/.angular
+**/.vscode
+
+
+
+

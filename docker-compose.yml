@@ -1,0 +1,22 @@
+services:
+  backend:
+      # image: back
+      build:
+        context: ./Deployment  
+      ports:
+        - "8081:8080"
+
+  frontend:
+      # image: angular-docker
+      build:
+        context: ./Deployment/wwwroot/AmbulanceApp
+        
+      ports:
+        - "8080:80"
+  sql:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "Thakuri1@"
+    ports:
+    - "1433:1433"

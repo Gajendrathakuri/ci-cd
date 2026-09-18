@@ -1,0 +1,16 @@
+name: ci-ci pipelines
+
+on:
+  push:
+    branches:
+      - main
+jobs:
+   testing:
+     runs-on: ubuntu-latest
+
+
+     steps:
+       - name: sayhello
+         run: echo "Hello ci-cd pipelines" 
+       - name: sayhi
+         run: echo "sayhi"
