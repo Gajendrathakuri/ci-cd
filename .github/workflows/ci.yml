@@ -65,7 +65,7 @@ jobs:
         run: docker compose config
       
       - name: build docker image
-        run: docket compose build 
+        run: docker compose build 
 
 
 
