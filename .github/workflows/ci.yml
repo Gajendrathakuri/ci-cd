@@ -1,16 +1,61 @@
-name: ci-ci pipelines
+name: ci-ci pipelines for Dotnet and Angular
 
 on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
+
 jobs:
-   testing:
+   backend_DotnetAsp:
      runs-on: ubuntu-latest
 
-
      steps:
-       - name: sayhello
-         run: echo "Hello ci-cd pipelines" 
-       - name: sayhi
-         run: echo "sayhi"
+       - name: checkout code
+         uses: actions/checkout@v4
+
+       - name: setup dontnet
+         uses: actions/setup-dotnet@v4
+         with:
+           dotnet-version: "10.0.x"
+
+       - name: Restore dependencies
+         run: dotnet restore ./Deployment.slnx
+
+       - name: build dotnet
+         run: dotnet build ./Deployment.slnx --configuration Release --no-restore
+
+       - name: Test dotnet 
+         run: dotnet test ./Deployment.slnx --configuration Release --no-build
+   
+   frontend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout code 
+        uses: actions/checkout@v4
+
+      - name: setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      
+      - name: Install packags
+        working-directory: ./Deployment/wwwroot/AmbulanceApp
+        run: npm ci
+
+      - name: build angular 
+        working-directory: ./Deployment/wwwroot/AmbulanceApp
+        run: npm run build
+        
+
+
+    
+
+         
+
+
+
+     
