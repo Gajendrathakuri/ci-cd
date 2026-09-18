@@ -1,13 +1,13 @@
 services:
   backend:
-      # image: back
+      image: ghcr.io/gajendrathakuri/ci-cd-backend:latest
       build:
         context: ./Deployment  
       ports:
         - "8081:8080"
 
   frontend:
-      # image: angular-docker
+      image: ghcr.io/gajendrathakuri/ci-cd-frontend:latest
       build:
         context: ./Deployment/wwwroot/AmbulanceApp
         
