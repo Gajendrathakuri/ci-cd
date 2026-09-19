@@ -7,6 +7,9 @@ on:
   pull_request:
     branches:
       - main
+permissions:
+  contents: read
+  packages: write
 
 jobs:
   backend_DotnetAsp:
@@ -61,11 +64,21 @@ jobs:
       - name: checkout code
         uses: actions/checkout@v4
       
+      - name: login to GHCR
+        uses: docker/login-action@v3
+        with: 
+          registry: ghcr.io
+          username: ${{github.actor}}
+          password: ${{secrets.GITHUB_TOKEN}}
       - name: vallidate Docker compose
         run: docker compose config
       
       - name: build docker image
         run: docker compose build 
+      
+      - name: push docker image
+        run: docker compose push 
+
 
 
 
